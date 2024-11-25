@@ -1,4 +1,4 @@
-import { binanceList } from "./binanceList.js";
+const { binanceList } = require("./binanceList.js");
 
 // export const parser = (apiData = {}) => {
 //   const { status, data } = apiData;
@@ -163,7 +163,6 @@ import { binanceList } from "./binanceList.js";
 
 //   return [...updatedItemArrayOverLap, ...updatedItemNotOverlapArray];
 // };
-
 
 export const parser = (apiData = {}) => {
   const { status, data } = apiData;
