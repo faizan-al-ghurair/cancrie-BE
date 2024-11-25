@@ -11,7 +11,7 @@ const { mock } = require("./mock");
 const fiveSec = "*/10 * * * * *";
 const fifteenMins = "*/15 * * * *";
 const API_URL =
-  "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?start=1&limit=2";
+  "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?start=1&limit=500";
 
 const CoinSchema = new mongoose.Schema(
   {
