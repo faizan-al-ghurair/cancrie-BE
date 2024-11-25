@@ -846,7 +846,7 @@ export const apiDataParserToSchema = (apiData) => {
         },
       };
   });
-  console.log("newData.filter", newData);
+  // console.log("newData.filter", newData);
 
   return newData.filter((item) => item);
 };

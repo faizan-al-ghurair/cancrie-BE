@@ -46,7 +46,7 @@ async function insertInChunks(model, data, chunkSize = 20) {
   // console.log(res);
   for (let i = 0; i < data.length; i += chunkSize) {
     const chunk = data.slice(i, i + chunkSize);
-    console.log("chunk", chunk.length);
+    // console.log("chunk", chunk.length);
     await model.insertMany(chunk);
   }
 }
