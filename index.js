@@ -78,6 +78,7 @@ const getAllData = async () => {
 
 cron.schedule(fifteenMins, async () => {
   try {
+    console.log("----- started at -----", new Date());
     const data = await apiFunction(); // get api
     const parsedNewData = await apiDataParserToSchema(data); /// parse api data
     const parsedOldData = await getAllData(); // get old data from DB
