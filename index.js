@@ -26,10 +26,13 @@ const CoinSch = mongoose.models.Coin || mongoose.model("Coin", CoinSchema);
 const mongoDBURL =
   "mongodb+srv://fshaikhapple:Faizansk%40123@cluster0.p58oz.mongodb.net/coins?retryWrites=true&w=majority&appName=Cluster0";
 mongoose
-  .connect(mongoDBURL, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect(
+    "mongodb+srv://fshaikhapple:Faizansk%40123@cluster0.p58oz.mongodb.net/coins?retryWrites=true&w=majority&appName=Cluster0",
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    }
+  )
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.error("error", err));
 
