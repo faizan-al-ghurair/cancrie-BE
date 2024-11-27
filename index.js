@@ -13,6 +13,7 @@ const fifteenMins = "*/15 * * * *";
 const API_URL =
   "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?start=1&limit=500";
 
+// some change
 const CoinSchema = new mongoose.Schema(
   {
     name: { type: String, required: true }, // Keep validation for name
