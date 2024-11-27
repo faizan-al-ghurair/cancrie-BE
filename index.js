@@ -54,7 +54,7 @@ async function replaceAllDocumentsBulk(newData) {
   try {
     await CoinSch.deleteMany({});
     await insertInChunks(CoinSch, newData); //! issue
-    console.log("added in db");
+    console.log("added in db", new Date());
   } catch (e) {
     console.log("e", e);
   } finally {
