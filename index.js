@@ -1,6 +1,5 @@
 import express from "express";
 import mongoose from "mongoose";
-import Coin from "./Coins.js"; // Ensure this file uses ES Module syntax or export default
 import cors from "cors";
 import cron from "node-cron";
 import { mock } from "./mock.js"; // Ensure these files use ES Module syntax
