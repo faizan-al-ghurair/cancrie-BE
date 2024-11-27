@@ -955,3 +955,4 @@ export const updateInDBParser = (newData, dataBaseOldData) => {
 
   return filteredMergedArray;
 };
+

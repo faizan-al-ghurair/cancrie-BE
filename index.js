@@ -5,8 +5,8 @@ const mongoose = require("mongoose");
 const Coin = require("./Coins");
 const cors = require("cors");
 const cron = require("node-cron");
-const { apiDataParserToSchema, updateInDBParser } = require("./parser");
 const { mock } = require("./mock");
+const { updateInDBParser, apiDataParserToSchema } = require("./parser");
 
 const fiveSec = "*/10 * * * * *";
 const fifteenMins = "*/15 * * * *";

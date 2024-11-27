@@ -7,6 +7,13 @@
     "build": "node run build",
     "start": "node index.js"
   },
+  "type": "module",
+  "exports": {
+    ".": {
+      "require": "./index.cjs",
+      "import": "./index.mjs"
+    }
+  },
   "author": "",
   "license": "ISC",
   "description": "",
