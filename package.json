@@ -7,7 +7,6 @@
     "build": "node run build",
     "start": "node index.js"
   },
-  "type": "module",
   "author": "",
   "license": "ISC",
   "description": "",
