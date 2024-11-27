@@ -4,7 +4,7 @@ import cors from "cors";
 import cron from "node-cron";
 import { mock } from "./mock.js"; // Ensure these files use ES Module syntax
 import { updateInDBParser, apiDataParserToSchema } from "./parser.js"; // Ensure these files use ES Module syntax
-
+const port = 5000;
 const app = express();
 const fiveSec = "*/10 * * * * *";
 const fifteenMins = "*/15 * * * *";
