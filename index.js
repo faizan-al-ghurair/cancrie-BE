@@ -47,6 +47,7 @@ async function insertInChunks(model, data, chunkSize = 20) {
     // console.log("chunk", chunk.length);
     await model.insertMany(chunk);
   }
+  console.log("----- started at -----", new Date());
 }
 
 async function replaceAllDocumentsBulk(newData) {
@@ -76,7 +77,6 @@ const getAllData = async () => {
 
 cron.schedule(fifteenMins, async () => {
   try {
-    console.log("----- started at -----", new Date());
     const data = await apiFunction(); // get api
     const parsedNewData = await apiDataParserToSchema(data); /// parse api data
     const parsedOldData = await getAllData(); // get old data from DB
@@ -93,6 +93,8 @@ cron.schedule(fifteenMins, async () => {
 
 app.get("/coins", async (req, res) => {
   try {
+    console.log("----getting coins -----");
+
     const coins = await getAllData(); // Fetch all records in the coins collection
     res.json(coins); // Send the records as JSON
   } catch (error) {
