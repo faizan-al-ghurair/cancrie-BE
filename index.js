@@ -1,12 +1,10 @@
-const express = require("express");
-const port = 5000;
-const app = express();
-const mongoose = require("mongoose");
-const Coin = require("./Coins");
-const cors = require("cors");
-const cron = require("node-cron");
-const { mock } = require("./mock");
-const { updateInDBParser, apiDataParserToSchema } = require("./parser");
+import express from "express";
+import mongoose from "mongoose";
+import Coin from "./Coins.js"; // Ensure this file uses ES Module syntax or export default
+import cors from "cors";
+import cron from "node-cron";
+import { mock } from "./mock.js"; // Ensure these files use ES Module syntax
+import { updateInDBParser, apiDataParserToSchema } from "./parser.js"; // Ensure these files use ES Module syntax
 
 const fiveSec = "*/10 * * * * *";
 const fifteenMins = "*/15 * * * *";
