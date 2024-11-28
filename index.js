@@ -58,7 +58,10 @@ async function replaceAllDocumentsBulk(newData) {
   } catch (e) {
     console.log("e", e);
   } finally {
-    console.log("-----> Connection Closed <-----");
+    // await mongoose.connection.close();
+    // process.on("SIGINT", async () => {
+    //   console.log("-----> Connection Closed <-----");
+    // });
   }
 }
 
@@ -107,4 +110,11 @@ app.get("/coins", async (req, res) => {
 
 app.listen(port, (req, resp) => {
   console.log("server started on ", port);
+});
+
+process.on("SIGINT", async () => {
+  await mongoose.connection.close();
+  console.log("MongoDB connection closed due to app termination");
+  console.log("-----> Connection Closed <-----");
+  process.exit(0);
 });
