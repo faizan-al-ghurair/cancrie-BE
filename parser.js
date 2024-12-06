@@ -854,6 +854,8 @@ export const apiDataParserToSchema = (apiData) => {
 //! this function eleminates other entries of data and gives 7 days data only
 function limitDateTimeEntries(obj, maxEntries) {
   const dateTimeKeys = Object.keys(obj.dateTime); // Get all keys of the dateTime object
+  console.log("dateTimeKeys", dateTimeKeys);
+
   const limitedKeys = dateTimeKeys.slice(0, maxEntries); // Retain only the first `maxEntries` keys
   const limitedDateTime = limitedKeys.reduce((acc, key) => {
     acc[key] = obj.dateTime[key]; // Add only the allowed keys to the new object
@@ -955,4 +957,3 @@ export const updateInDBParser = (newData, dataBaseOldData) => {
 
   return filteredMergedArray;
 };
-
