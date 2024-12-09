@@ -856,7 +856,8 @@ function limitDateTimeEntries(obj, maxEntries) {
   const dateTimeKeys = Object.keys(obj.dateTime); // Get all keys of the dateTime object
   console.log("dateTimeKeys", dateTimeKeys);
 
-  const limitedKeys = dateTimeKeys.slice(0, maxEntries); // Retain only the first `maxEntries` keys
+  // const limitedKeys = dateTimeKeys.slice(0, maxEntries); // Retain only the first `maxEntries` keys
+  const limitedKeys = dateTimeKeys; // Retain only the first `maxEntries` keys
   const limitedDateTime = limitedKeys.reduce((acc, key) => {
     acc[key] = obj.dateTime[key]; // Add only the allowed keys to the new object
     return acc;

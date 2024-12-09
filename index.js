@@ -35,8 +35,8 @@ mongoose
   .connect(mongoDBURL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    serverSelectionTimeoutMS: 120000, // Increased timeout to 2 minutes
-    socketTimeoutMS: 120000, // Increased socket timeout to 2 minutes
+    serverSelectionTimeoutMS: 220000, // Increased timeout to 2 minutes
+    socketTimeoutMS: 220000, // Increased socket timeout to 2 minutes
   })
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.error("MongoDB connection error:", err));
