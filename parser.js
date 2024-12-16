@@ -827,28 +827,35 @@ export const getDate = (dateString) => {
 //! this converts the api data into acceptable data for updateInDBParser()
 export const apiDataParserToSchema = (apiData) => {
   const newData = apiData?.data?.map((item) => {
-    const formattedDate = getDate(item.last_updated);
-    const last_updated = getDateAndTimeCustom(item.last_updated);
+    // const formattedDate = getDate(item.last_updated);
+    // const last_updated = getDateAndTimeCustom(item.last_updated);
     if (binanceList.includes(item.symbol))
       return {
-        name: item.name,
-        symbol: item.symbol,
-        dateTime: {
-          [formattedDate]: {
-            [last_updated]: {
-              last_updated: item.last_updated,
-              market_cap: item.quote.USD.market_cap,
-              price: item.quote.USD.price,
-              volume_24h: item.quote.USD?.volume_24h,
-              cmc_rank: item.cmc_rank,
-            },
-          },
+        last_updated: new Date(item.last_updated),
+        data: {
+          name: item.name,
+          symbol: item.symbol,
+          market_cap: item.quote.USD.market_cap,
+          price: item.quote.USD.price,
+          volume_24h: item.quote.USD?.volume_24h,
+          cmc_rank: item.cmc_rank,
         },
+        // dateTime: {
+        //   [formattedDate]: {
+        //     [last_updated]: {
+        //       last_updated: item.last_updated,
+        //       market_cap: item.quote.USD.market_cap,
+        //       price: item.quote.USD.price,
+        //       volume_24h: item.quote.USD?.volume_24h,
+        //       cmc_rank: item.cmc_rank,
+        //     },
+        //   },
+        // },
       };
   });
   // console.log("newData.filter", newData);
 
-  return newData.filter((item) => item);
+  return newData.filter((item) => !!item);
 };
 
 //! this function eleminates other entries of data and gives 7 days data only

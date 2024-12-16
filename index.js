@@ -9,8 +9,8 @@ import { updateInDBParser, apiDataParserToSchema } from "./parser.js";
 const port = process.env.PORT || 5000;
 const app = express();
 
-// const SCHEDULE_FREQUENCY = "*/10 * * * * *";
-const SCHEDULE_FREQUENCY = "*/15 * * * *"; // Run every 15 minutes
+const SCHEDULE_FREQUENCY = "*/10 * * * * *";
+// const SCHEDULE_FREQUENCY = "*/15 * * * *"; // Run every 15 minutes
 
 const API_URL =
   "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?start=1&limit=500";
@@ -21,32 +21,25 @@ const mongoDBURL =
 
 // Schema Definition
 const CoinSchema = new mongoose.Schema(
-  {
-    name: { type: String, required: true },
-    dateTime: { type: mongoose.Schema.Types.Mixed },
-  },
-  { strict: false }
+  {},
+  { strict: false, collection: "coins_new" }
 );
+CoinSchema.index({
+  'data.name': 1,
+});
 
-const CoinModel = mongoose.models.Coin || mongoose.model("Coin", CoinSchema);
+const CoinModel = mongoose.model("coins_new", CoinSchema);
 
 // MongoDB Connection
 mongoose
   .connect(mongoDBURL, {
     useNewUrlParser: true,
-    useUnifiedTopology: true,
-    serverSelectionTimeoutMS: 220000, // Increased timeout to 2 minutes
-    socketTimeoutMS: 220000, // Increased socket timeout to 2 minutes
   })
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.error("MongoDB connection error:", err));
 
 // Middleware
-app.use(
-  cors({
-    origin: "*",
-  })
-);
+app.use(cors());
 
 // Helper Function: Insert in Chunks
 const insertInChunks = async (model, data, chunkSize = 20) => {
@@ -94,15 +87,17 @@ cron.schedule(SCHEDULE_FREQUENCY, async () => {
   try {
     const apiData = await fetchAPIData();
     if (!apiData) return;
+    // console.log("apiData", apiData);
 
     const parsedNewData = apiDataParserToSchema(apiData);
-    const parsedOldData = await getAllData();
+    // const parsedOldData = await getAllData();
 
-    const dataToUpdate = parsedOldData.length
-      ? updateInDBParser(parsedNewData, parsedOldData)
-      : parsedNewData;
+    // const dataToUpdate = parsedOldData.length
+    //   ? updateInDBParser(parsedNewData, parsedOldData)
+    //   : parsedNewData;
 
-    await replaceAllDocumentsBulk(CoinModel, dataToUpdate);
+    // await replaceAllDocumentsBulk(CoinModel, apiData);
+    await CoinModel.insertMany(parsedNewData);
   } catch (error) {
     console.error("Cron job error:", error);
   }
