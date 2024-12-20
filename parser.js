@@ -826,34 +826,51 @@ export const getDate = (dateString) => {
 
 //! this converts the api data into acceptable data for updateInDBParser()
 export const apiDataParserToSchema = (apiData) => {
-  const newData = apiData?.data?.map((item) => {
-    // const formattedDate = getDate(item.last_updated);
-    // const last_updated = getDateAndTimeCustom(item.last_updated);
-    if (binanceList.includes(item.symbol))
-      return {
-        last_updated: new Date(item.last_updated),
-        data: {
-          name: item.name,
-          symbol: item.symbol,
-          market_cap: item.quote.USD.market_cap,
-          price: item.quote.USD.price,
-          volume_24h: item.quote.USD?.volume_24h,
-          cmc_rank: item.cmc_rank,
-        },
-        // dateTime: {
-        //   [formattedDate]: {
-        //     [last_updated]: {
-        //       last_updated: item.last_updated,
-        //       market_cap: item.quote.USD.market_cap,
-        //       price: item.quote.USD.price,
-        //       volume_24h: item.quote.USD?.volume_24h,
-        //       cmc_rank: item.cmc_rank,
-        //     },
-        //   },
-        // },
-      };
+  let parsedData = [];
+  Object.keys(apiData.data).forEach((cryptoSymbol) => {
+    const item = apiData.data[cryptoSymbol];
+    const cryptoData = {
+      last_updated: new Date(item.quote.USD.last_updated),
+      data: {
+        cmc_rank: item.cmc_rank,
+        market_cap: item.quote.USD.market_cap,
+        name: item.name,
+        price: item.quote.USD.price,
+        symbol: cryptoSymbol,
+        volume_24h: item.quote.USD.volume_24h,
+      },
+    };
+    parsedData.push(cryptoData);
   });
-  // console.log("newData.filter", newData);
+  return parsedData;
+  // const newData = apiData?.data?.map((item) => {
+  //   // const formattedDate = getDate(item.last_updated);
+  //   // const last_updated = getDateAndTimeCustom(item.last_updated);
+  //   if (binanceList.includes(item.symbol))
+  //     return {
+  //       last_updated: new Date(item.last_updated),
+  //       data: {
+  //         name: item.name,
+  //         symbol: item.symbol,
+  //         market_cap: item.quote.USD.market_cap,
+  //         price: item.quote.USD.price,
+  //         volume_24h: item.quote.USD?.volume_24h,
+  //         cmc_rank: item.cmc_rank,
+  //       },
+  //       // dateTime: {
+  //       //   [formattedDate]: {
+  //       //     [last_updated]: {
+  //       //       last_updated: item.last_updated,
+  //       //       market_cap: item.quote.USD.market_cap,
+  //       //       price: item.quote.USD.price,
+  //       //       volume_24h: item.quote.USD?.volume_24h,
+  //       //       cmc_rank: item.cmc_rank,
+  //       //     },
+  //       //   },
+  //       // },
+  //     };
+  // });
+  // // console.log("newData.filter", newData);
 
   return newData.filter((item) => !!item);
 };
