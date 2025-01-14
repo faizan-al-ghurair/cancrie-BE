@@ -119,6 +119,18 @@ app.get("/coins", async (req, res) => {
   }
 });
 
+app.get("/api/coins/:name", async (req, res) => {
+  try {
+    const { name } = req.params;
+    const coin = await CoinModel.findOne({ "data.symbol": name });
+    if (!coin) return res.status(404).json({ message: "Coin not found" });
+    res.json(coin);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server Error" });
+  }
+});
+
 // Start Server
 app.listen(port, () => {
   console.log(`Server started on port ${port}`);
