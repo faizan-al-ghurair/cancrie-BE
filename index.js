@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import express from "express";
+import cors from "cors";
 
 const app = express();
 // const SCHEDULE_FREQUENCY = "*/10 * * * * *"; //Run every 10 sec
@@ -21,16 +22,14 @@ const API_KEY = "9d2cb7ed-ffbf-49fa-9ce3-ec705f240363";
 //   }
 // };
 
-
 const uri =
-"mongodb+srv://fshaikhapple:Faizansk%40123@cluster0.p58oz.mongodb.net/coinCap?retryWrites=true&w=majority&appName=Cluster0"; // Replace with your MongoDB URI
+  "mongodb+srv://fshaikhapple:Faizansk%40123@cluster0.p58oz.mongodb.net/coinCap?retryWrites=true&w=majority&appName=Cluster0"; // Replace with your MongoDB URI
 
 await mongoose.connect(uri);
-console.log('db connected')
-const CoinModel = mongoose.connection.collection('dashboard');
+console.log("db connected");
+const CoinModel = mongoose.connection.collection("dashboard");
 
 app.get("/get-coins", async (req, res) => {
-
   try {
     const data = await CoinModel.find({}).toArray();
     console.log(data.length);
@@ -41,7 +40,13 @@ app.get("/get-coins", async (req, res) => {
   }
 });
 
-app.listen(5000, () => console.log('server up'));
+app.use(cors({
+  origin: 'http://localhost:3000', // Replace with your React app URL
+  methods: ['GET', 'POST'], // Allowed methods
+  credentials: true // Include credentials if needed
+}));
+
+app.listen(5000, () => console.log("server up"));
 
 // export const apiDataParserToSchema = (apiData) => {
 //   let parsedData = [];
